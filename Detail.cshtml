@@ -1,0 +1,193 @@
+﻿@using NavesPortalforWebWithCoreMvc.Common
+@using Syncfusion.EJ2
+
+@{
+    ViewBag.PageTitle = "DIS > Comments Control";
+    ViewBag.PlatformName = "DIS";
+    ViewBag.Title = "Comments Control";
+    ViewBag.FunctionName = "Detail";
+}
+
+@section ContentsSection{
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="ps-2 pageContentTitle">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        <div class="ps-1">
+        </div>
+    </div>
+    <div>
+        <ejs-grid id="Grid" dataSource="@ViewBag.dataSource"
+              allowResizing="true"
+              allowReordering="true"
+              rowHeight="32"
+              showColumnChooser="true">
+            <e-grid-columns>
+                <e-grid-column field="NO" headerText="No" customAttributes=@(new{@class="customCss"}) width="80" textAlign="Center"></e-grid-column>
+                <e-grid-column field="PROJECT_ID" headerText="Project ID" customAttributes=@(new{@class="customCss"}) width="150" textAlign="Center"></e-grid-column>
+                <e-grid-column field="JOB_ID" headerText="Job ID" customAttributes=@(new{@class="customCss"}) width="150" textAlign="Center"></e-grid-column>
+                <e-grid-column field="WORK_ID" headerText="Work ID" customAttributes=@(new{@class="customCss"}) width="150" textAlign="Center"></e-grid-column>
+                <e-grid-column field="PROJECT_TITLE" headerText="Project Title" customAttributes=@(new{@class="customCss"}) width="250" textAlign="Center"></e-grid-column>
+                <e-grid-column field="VESSEL_NAME_KR" headerText="Vessel Name" customAttributes=@(new{@class="customCss"}) width="200" textAlign="Center"></e-grid-column>
+                <e-grid-column field="DESCRIPTION" headerText="Description" customAttributes=@(new{@class="customCss"}) width="350" textAlign="Center"></e-grid-column>
+                <e-grid-column field="CODE" headerText="Vessel Category" customAttributes=@(new{@class="customCss"}) width="200" textAlign="Center"></e-grid-column>
+                <e-grid-column field="PROJECT_CATEGORY" headerText="Sub Category" customAttributes=@(new{@class="customCss"}) width="200" textAlign="Center"></e-grid-column>
+                <e-grid-column field="TERM_OF_PROJECT" headerText="Term of Contract" customAttributes=@(new{@class="customCss"}) width="250" textAlign="Center"></e-grid-column>
+                <e-grid-column field="PM" headerText="Surveyor (PM)" customAttributes=@(new{@class="customCss"}) width="150" textAlign="Center"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="row align-items-center m-0 w-50">
+            <div class="col ps-0">
+                <ejs-textbox id="SearchString" name="SearchString" value="@ViewBag.SearchString" cssClass="e-outline inputable" placeholder="Search Keyword...(Code, Group, Item, Inspection...)"></ejs-textbox>
+            </div>
+            <div class="col-auto">
+                <button id="Search" type="submit" class="btn btn-purple btn-medium rounded-pill waves-effect waves-light">Search</button>
+            </div>
+        </div>
+        <div class="row align-items-center m-0">
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <ejs-grid id="GridItpList" dataBound="dataBound" rowDataBound="OnRowDataBound" recordClick="OnRecordClick"
+              rowHeight="32"
+              allowMultiSorting="true"
+              allowTextWrap="true"
+              allowResizing="true"
+              allowReordering="true"
+              allowSorting="true"
+              allowFiltering="true"
+              allowExcelExport="true"
+              allowPdfExport="true"
+              allowGrouping="true"
+              allowPaging="true"
+              showColumnChooser="true"
+              toolbar="@( new List<string>() { "ColumnChooser", "ExcelExport", "PdfExport", "CsvExport", "Print"})">
+            <e-data-manager url="@Url.Action("UrlDataSourceItpList", "DisCommentsControl",  new {Work_Idx = ViewBag.WorkIdx, SearchString = ""})" adaptor="UrlAdaptor" crossdomain="true"></e-data-manager>
+            <e-grid-filterSettings type="CheckBox"></e-grid-filterSettings>
+            <e-grid-pagesettings pageCount="10" pagesize="10" pageSizes="@(new string[] {"10", "20" , "50", "All" })"></e-grid-pagesettings>
+            <e-grid-groupSettings enableLazyLoading="true" allowReordering="true" showDropArea="true"></e-grid-groupSettings>
+            <e-grid-columns>
+                <e-grid-column field="NO" headerText="No" type="number" format="N" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="80"></e-grid-column>
+                <e-grid-column field="CLIENT_REFERENCE_NO" headerText="Reference No." customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="CODE" headerText="Code" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="PART" headerText="Part" customAttributes=@(new{@class="customCss"}) width="250"></e-grid-column>
+                <e-grid-column field="GROUP" headerText="Group" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="ITEM" headerText="Item" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="200"></e-grid-column>
+                <e-grid-column field="INSPECTION" headerText="Inspection" customAttributes=@(new{@class="customCss"}) textAlign="Left" width="450"></e-grid-column>
+                <e-grid-column field="ITP_SEQ" headerText="Seq" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="80"></e-grid-column>
+                <e-grid-column field="COMMENT_DATE" headerText="Comment Date" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="COMMENT_USER" headerText="Comment User" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="CONFIRM_DATE" headerText="Confirm Date" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="CONFIRM_USER" headerText="Confirm User" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="COMPLETE" template="#TemplateComplet" headerText="Complete" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="IS_DELETE" template="#TemplateDelete" headerText="Delete" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="DELETE_DATE" headerText="Delete Date" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+                <e-grid-column field="DELETE_USER" headerText="Delete User" customAttributes=@(new{@class="customCss"}) textAlign="Center" width="150"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+        <script id="TemplateComplet" type="text/x-template">
+            ${if(COMPLETE)}
+                <span class="" >Complete</span>
+            ${else}
+                <span class=""></span>
+            ${/if}
+
+        </script>
+
+        <script id="TemplateDelete" type="text/x-template">
+            ${if(IS_DELETE)}
+                <span class="" >Deleted</span>
+            ${else}
+                <span class=""></span>
+            ${/if}
+
+        </script>
+        <script>
+            const dataBound = () => {
+                var grid = document.getElementById('GridItpList').ej2_instances[0];
+                grid.hideScroll();
+            }
+
+            // 상세 보기
+            const OnRecordClick = (args) => {
+                CreateReportOpen(args.rowData.WORK_IDX, args.rowData.COMMENT_IDX)
+            }
+
+            const OnRowDataBound = (args) => {
+                if (args.data['IS_DELETE'] == 1) {
+                    args.row.classList.add('revisionGridRowItem');
+                    args.row.classList.add('girdDeletedRowItem');
+                }
+            }
+        </script>
+    </div>
+
+    <div class="pt-2">
+        <div class="float-start row g-0">
+            <div class="col-auto pe-2">
+            </div>
+            <div class="col-auto pe-2">
+            </div>
+            <div class="col-auto">
+            </div>
+        </div>
+        <div class="float-end row g-0">
+            <div class="col-auto pe-2">
+            </div>
+            <div class="col-auto pe-2">
+            </div>
+            <div class="col-auto">
+                <a asp-controller="DisCommentsControl" asp-action="Index" id="btnList" class="btn btn-primary rounded-pill waves-effect waves-light btn-medium">LIST</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function CreateReportOpen(WorkIdx, CommentIdx) {
+            var W = (screen.availWidth * 0.6);
+            var H = (screen.availHeight * 0.7);
+
+            var popupX = (screen.availWidth / 2) - (W / 2);
+            var popupY = (screen.availHeight / 2) - (H / 2);
+
+            var opt = "status=no,width=" + W + "px, height=" + H + "px, left=" + popupX + ", top=" + popupY + ",scrollbars=yes";
+            var popup = window.open('/DisCommentsControl/CommentCheckPopup/?WorkIdx=' + WorkIdx + '&CommentIdx=' + CommentIdx, 'Comments List', opt);
+
+
+            popup.opener = window;
+            popup.focus();
+        }
+    </script>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            // Search Button click 시 조회
+            $("#Search").click(function () {
+                gridRefreshItpList("DisCommentsControl", "GridItpList");
+            });
+
+            $("#SearchString").keyup(function () {
+                // Enter 입력 시 조회
+                if (window.event.keyCode == 13) {
+                    gridRefreshItpList("DisCommentsControl", "GridItpList");
+                }
+            });
+        });
+
+        function gridRefreshItpList(controller, grid) {
+            var grid = document.getElementById(grid).ej2_instances[0];
+            var SearchString = $("#SearchString").val();
+
+            grid.dataSource = new ej.data.DataManager({
+                url: "/" + controller + "/UrlDataSourceItpList?WorkID=@ViewBag.WorkId&ItpStatus=@CommonSettingData.Dis_Itp_Status.CONFIRM.ToString()&ActionStatus=@CommonSettingData.Dis_Action_Status.APPLY.ToString()&SearchString=" + SearchString,
+                adaptor: new ej.data.UrlAdaptor(),
+                contentType: "application/json; charset=utf-8"
+            });
+        }
+    </script>
+}

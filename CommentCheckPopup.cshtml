@@ -1,0 +1,168 @@
+﻿@model PNAV_DIS_GET_COMMENT_DETAILResult
+@{
+    Layout = "_PopUpLayout";
+    ViewBag.PageTitle = "Comments Check & Confirmation";
+    ViewBag.Title = "Comments Check & Confirmation";
+}
+
+<div class="d-flex justify-content-between align-items-center">
+    <div class="ps-2 pageContentTitle">
+        <h3 class="fw-bold">@ViewBag.Title</h3>
+    </div>
+    <div class="ps-1">
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Work ID</label>
+    <div class="col-sm-4">
+        <h4>@Model.WORK_ID</h4>
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">ITP Code - Seq</label>
+    <div class="col-sm-4">
+        @{
+            if (Model.CODE != null)
+            {
+                <span>@Model.CODE - @Model.ITP_SEQ</span>
+            }
+            else
+            {
+                <span>@Model.ITP_SEQ</span>
+            }
+        }
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Part</label>
+    <div class="col-sm-4">
+        @Model.PART
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Group</label>
+    <div class="col-sm-4">
+        @Model.GROUP
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Item</label>
+    <div class="col-sm-10">
+        @Model.ITEM
+    </div>
+</div>
+
+<div class="mx-0 row bprder border-bottom" style="height: 70px;">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Inspection</label>
+    <div class="col-sm-10 pt-1">
+        @Model.INSPECTION
+    </div>
+</div>
+
+<div class="mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Comment</label>
+    <div class="col-sm-10 pt-1" style="min-height:120px;">
+        @Model.COMMENT
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Comment File</label>
+    <div class="col-sm-10">
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Comment Date</label>
+    <div class="col-sm-4">
+        @Model.COMMENT_DATE
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Comment Surveyor</label>
+    <div class="col-sm-4">
+        @Model.CREATE_USER_NAME
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom mt-3">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Confirmation</label>
+    <div class="col-sm-10">
+        @Model.STATUS
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Comfirmation File</label>
+    <div class="col-sm-4">
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Confrim Date</label>
+    <div class="col-sm-4">
+        @Model.CONFIRM_DATE
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Confirm Surveyor</label>
+    <div class="col-sm-4">
+        @Model.CONFIRM_USER
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Completion</label>
+    <div class="col-sm-4 form-check">
+        <ejs-checkbox id="chkComplete" label="" checked="@Model.COMPLETE" disabled></ejs-checkbox>
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Delete</label>
+    <div class="col-sm-4">
+        <ejs-checkbox id="chkDelete" label="" checked="@Model.IS_DELETE" disabled></ejs-checkbox>
+    </div>
+</div>
+
+<div class="align-items-center mx-0 row bprder border-bottom">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Delete date</label>
+    <div class="col-sm-4">
+        @Model.DELETE_DATE
+    </div>
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Delete Surveyor</label>
+    <div class="col-sm-4">
+        @Model.DELETE_USER
+    </div>
+</div>
+
+<div class=" mx-0 row bprder border-bottom" style="min-height:40px;">
+    <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Delete Resion</label>
+    <div class="col-sm-4 pt-1">
+        @Model.DELETE_REASON
+    </div>
+</div>
+
+<div class="pt-2">
+    <div class="float-start row g-0">
+        <div class="col-auto pe-2">
+        </div>
+        <div class="col-auto pe-2">
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+    <div class="float-end row g-0">
+        <div class="col-auto pe-2">
+        </div>
+        <div class="col-auto pe-2">
+        </div>
+        <div class="col-auto">
+            <a id="btnClose" class="btn btn-secondary rounded-pill waves-effect waves-light btn-medium" onclick="popupClose();">CLOSE</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function popupClose() {
+        var openerWindow = window.self;
+        openerWindow.opener = window.self;
+        openerWindow.close();
+    }
+</script>
+
+@section Scripts{
+
+}
